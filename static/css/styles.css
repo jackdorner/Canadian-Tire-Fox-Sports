@@ -1,0 +1,37 @@
+:root{
+  /* Tweak these */
+  --bg: #0c0f13;                     /* page background */
+  --logo-opacity: 0.14;              /* watermark strength */
+  /* Make the logo smaller/larger here */
+  --logo-size: clamp(400px, 60vmin, 1000px);
+}
+
+/* Make sure the pseudo-element has an anchor & full height */
+html, body { height: 100%; }
+body{
+  margin: 0;
+  background: var(--bg);
+  position: relative;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Big centered watermark */
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* PATH NOTE: this path is relative to THIS CSS FILE */
+  background-image: url("/static/images/NFL_Logo.png"); 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: var(--logo-size);
+  opacity: var(--logo-opacity);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Optional: accessibility */
+@media (prefers-reduced-transparency: reduce){
+  body::before{ opacity: 0.06; }
+}
