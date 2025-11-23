@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
 ]
 
 MIDDLEWARE = [
@@ -73,28 +72,12 @@ WSGI_APPLICATION = 'nfl_game_center.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# MongoDB Configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'nfl_game_center',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': 'localhost',
-            'port': 27017,
-            # Uncomment and configure if MongoDB requires authentication:
-            # 'username': 'your_username',
-            # 'password': 'your_password',
-            # 'authSource': 'admin',
-            # 'authMechanism': 'SCRAM-SHA-1',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# Alternative: Direct PyMongo connection for raw MongoDB operations
-# from pymongo import MongoClient
-# MONGO_CLIENT = MongoClient('mongodb://localhost:27017/')
-# MONGO_DB = MONGO_CLIENT['nfl_game_center']
 
 
 # Password validation
