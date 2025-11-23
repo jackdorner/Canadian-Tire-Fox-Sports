@@ -7,11 +7,31 @@
   <title>NFL Gamecenter</title>
 
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <!-- pick one of these -->
   <link rel="icon" type="image/png" href="{% static 'images/nfl-favicon.png' %}">
-  <script src="{% static 'js/nfl_game_center.js' %}"></script>
-  <!-- or -->
-  <!-- <link rel="icon" href="data:,">  remove favicon entirely -->
+  <script src="{% static 'js/nfl_game_center.js' %}" defer></script>
 </head>
-<body></body>
+<body>
+  <div class="container">
+    <!-- Season and Week Selectors -->
+    <div class="controls">
+      <div class="season-selector">
+        <button id="prevSeason" class="nav-btn">&#8249;</button>
+        <span id="currentSeason" class="selector-display">25/26</span>
+        <button id="nextSeason" class="nav-btn">&#8250;</button>
+      </div>
+
+      <div class="week-selector">
+        <button id="prevWeek" class="nav-btn">&#8249;</button>
+        <span id="currentWeek" class="selector-display">Week 10</span>
+        <button id="nextWeek" class="nav-btn">&#8250;</button>
+      </div>
+    </div>
+
+    <!-- Games Display -->
+    <div id="gamesContainer" class="games-container">
+      <!-- Games will be dynamically inserted here -->
+      <div class="loading">Loading games...</div>
+    </div>
+  </div>
+</body>
 </html>
