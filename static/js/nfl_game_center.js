@@ -1,9 +1,6 @@
 class NFLGameCenter {
   constructor() {
-    this.currentYear = 2025;
     this.currentWeek = 10;
-    this.minYear = 2020;
-    this.maxYear = 2025;
     this.minWeek = 1;
     this.maxWeek = 18; // Regular season weeks
     
@@ -17,23 +14,6 @@ class NFLGameCenter {
   }
 
   setupEventListeners() {
-    // Season navigation
-    document.getElementById('prevSeason').addEventListener('click', () => {
-      if (this.currentYear > this.minYear) {
-        this.currentYear--;
-        this.updateDisplay();
-        this.loadGames();
-      }
-    });
-
-    document.getElementById('nextSeason').addEventListener('click', () => {
-      if (this.currentYear < this.maxYear) {
-        this.currentYear++;
-        this.updateDisplay();
-        this.loadGames();
-      }
-    });
-
     // Week navigation
     document.getElementById('prevWeek').addEventListener('click', () => {
       if (this.currentWeek > this.minWeek) {
@@ -53,16 +33,10 @@ class NFLGameCenter {
   }
 
   updateDisplay() {
-    // Update season display (25/26 format)
-    const seasonDisplay = `${String(this.currentYear).slice(-2)}/${String(this.currentYear + 1).slice(-2)}`;
-    document.getElementById('currentSeason').textContent = seasonDisplay;
-
     // Update week display
     document.getElementById('currentWeek').textContent = `Week ${this.currentWeek}`;
 
     // Enable/disable buttons based on boundaries
-    document.getElementById('prevSeason').disabled = this.currentYear <= this.minYear;
-    document.getElementById('nextSeason').disabled = this.currentYear >= this.maxYear;
     document.getElementById('prevWeek').disabled = this.currentWeek <= this.minWeek;
     document.getElementById('nextWeek').disabled = this.currentWeek >= this.maxWeek;
   }
@@ -73,8 +47,7 @@ class NFLGameCenter {
 
   try {
     const params = new URLSearchParams({
-      week: this.currentWeek,
-      season_start: this.currentYear,   // 2025 -> backend turns into "25/26"
+      week: this.currentWeek
     });
 
     const response = await fetch(`/api/games/?${params.toString()}`);

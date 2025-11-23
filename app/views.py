@@ -21,9 +21,9 @@ games_col = db["Games"]
 @require_GET
 def games_for_week(request):
     week = request.GET.get("week")    # "1", "10", etc.
-    season_start = request.GET.get("season_start")  # "2025"
+    season_start = request.GET.get("season_start", "2025")  # Default to 2025 if not provided
 
-    if not week or not season_start:
+    if not week:
         return JsonResponse({"games": []})
 
     # Your docs use "2025/2026"
