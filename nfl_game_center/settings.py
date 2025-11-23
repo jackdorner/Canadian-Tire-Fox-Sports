@@ -79,6 +79,24 @@ DATABASES = {
     }
 }
 
+MONGODB_URI = 'mongodb+srv://jackdorner9_db_user:kcuUK3YqRp2gqYSL@cluster0.c3huwhy.mongodb.net/'
+MONGODB_DB_NAME = 'FinalProjectPart2'
+
+# Test MongoDB Connection
+from pymongo import MongoClient
+
+try:
+    mongo_client = MongoClient(MONGODB_URI)
+    # Test the connection
+    mongo_client.admin.command('ping')
+    mongo_db = mongo_client[MONGODB_DB_NAME]
+    print(f"✅ MongoDB connected successfully to {MONGODB_DB_NAME}!")
+    print(f"   Collections: {mongo_db.list_collection_names()}")
+except Exception as e:
+    print(f"❌ MongoDB connection failed: {e}")
+    mongo_client = None
+    mongo_db = None
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
