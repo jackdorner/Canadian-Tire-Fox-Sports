@@ -7,18 +7,18 @@ from datetime import datetime, timedelta
 from django.shortcuts import render
 import requests
 import json
+import threading
+from time import sleep
+from app.NFLEndpoints import NFLTeam
 
-
-client = MongoClient(settings.MONGODB_URI)
-db = client["FinalProjectPart2"]   # DB name
-games_col = db["GameWeeks"]     #collection name
-
-def home(request):
-    return render(request, "home.html")
 
 client = MongoClient(settings.MONGODB_URI)
 db = client["FinalProjectPart2"]
 games_col = db["Games"]
+team_stats_col = db["TeamStats"]
+
+def home(request):
+    return render(request, "home.html")
 
 
 @require_GET
@@ -265,5 +265,120 @@ def refresh_week_games(request):
         
     except Exception as e:
         print(f"Error refreshing games: {e}")
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+def fetch_team_stats(team_id, year=2025):
+    """Fetch statistics for a specific team from ESPN API"""
+    url = f"https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/{year}/types/2/teams/{team_id}/statistics"
+    
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        
+        # Extract all stats from all categories
+        all_stats = []
+        
+        if 'splits' in data and 'categories' in data['splits']:
+            for category in data['splits']['categories']:
+                if 'stats' in category:
+                    for stat in category['stats']:
+                        # Build the stat object
+                        stat_obj = {
+                            "name": stat.get("name", ""),
+                            "displayName": stat.get("displayName", ""),
+                            "shortDisplayName": stat.get("shortDisplayName", ""),
+                            "description": stat.get("description", ""),
+                            "abbreviation": stat.get("abbreviation", ""),
+                            "value": stat.get("value", 0),
+                            "displayValue": stat.get("displayValue", "0"),
+                        }
+                        
+                        # Add optional fields if they exist
+                        if "perGameValue" in stat:
+                            stat_obj["perGameValue"] = stat["perGameValue"]
+                        if "perGameDisplayValue" in stat:
+                            stat_obj["perGameDisplayValue"] = stat["perGameDisplayValue"]
+                        if "rank" in stat:
+                            stat_obj["rank"] = stat["rank"]
+                        if "rankDisplayValue" in stat:
+                            stat_obj["rankDisplayValue"] = stat["rankDisplayValue"]
+                        
+                        all_stats.append(stat_obj)
+        
+        # Return in the specified format
+        return {
+            "team_id": team_id,
+            "stats": all_stats
+        }
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching stats for team {team_id}: {e}")
+        return None
+
+
+def refresh_all_team_stats_async(year=2025):
+    """Background task to fetch all team stats and update MongoDB"""
+    print(f"Starting async team stats refresh for season {year}...")
+    
+    try:
+        # Clear existing stats
+        result = team_stats_col.delete_many({})
+        print(f"Deleted {result.deleted_count} existing team stats documents")
+        
+        updated_count = 0
+        failed_count = 0
+        
+        # Fetch stats for each team
+        for team in NFLTeam:
+            team_id = team.value
+            team_name = team.name
+            
+            print(f"Fetching stats for {team_name} (ID: {team_id})...")
+            
+            team_stats = fetch_team_stats(team_id, year)
+            
+            if team_stats:
+                # Insert the new stats
+                team_stats_col.insert_one(team_stats)
+                updated_count += 1
+                print(f"  ✓ Updated {team_name} with {len(team_stats['stats'])} stats")
+            else:
+                failed_count += 1
+                print(f"  ✗ Failed to fetch stats for {team_name}")
+            
+            # Be nice to the API
+            sleep(0.5)
+        
+        print(f"\nTeam stats refresh completed:")
+        print(f"  - Successfully updated: {updated_count} teams")
+        print(f"  - Failed: {failed_count} teams")
+        
+    except Exception as e:
+        print(f"Error in async team stats refresh: {e}")
+
+
+@csrf_exempt
+@require_POST
+def trigger_stats_refresh(request):
+    """Trigger async refresh of team statistics"""
+    try:
+        data = json.loads(request.body)
+        season_start = data.get('season_start', '2025')
+        year = int(season_start)
+        
+        # Start the refresh in a background thread
+        thread = threading.Thread(target=refresh_all_team_stats_async, args=(year,))
+        thread.daemon = True
+        thread.start()
+        
+        return JsonResponse({
+            'message': 'Team stats refresh started in background',
+            'status': 'started'
+        })
+        
+    except Exception as e:
+        print(f"Error triggering stats refresh: {e}")
         return JsonResponse({'error': str(e)}, status=500)
 

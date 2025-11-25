@@ -24,4 +24,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path("api/games/", views.games_for_week, name="games_for_week"),
     path("api/refresh-games/", views.refresh_week_games, name="refresh_week_games"),
+    path("api/refresh-stats/", views.trigger_stats_refresh, name="trigger_stats_refresh"),
 ]

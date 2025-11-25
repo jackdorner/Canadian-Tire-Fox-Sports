@@ -77,7 +77,8 @@ class NFLGameCenter {
     refreshBtn.innerHTML = '<span class="refresh-icon spinning">&#x21bb;</span> Refreshing...';
 
     try {
-      const response = await fetch('/api/refresh-games/', {
+      // Refresh games first (this is synchronous and returns updated data)
+      const gamesResponse = await fetch('/api/refresh-games/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,11 +89,30 @@ class NFLGameCenter {
         })
       });
 
-      if (!response.ok) {
+      if (!gamesResponse.ok) {
         throw new Error('Failed to refresh games');
       }
 
-      const data = await response.json();
+      const gamesData = await gamesResponse.json();
+      
+      // Trigger team stats refresh in background (fire and forget)
+      fetch('/api/refresh-stats/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          season_start: '2025'
+        })
+      }).then(response => {
+        if (response.ok) {
+          console.log('Team stats refresh started in background');
+        } else {
+          console.warn('Failed to trigger stats refresh');
+        }
+      }).catch(error => {
+        console.error('Error triggering stats refresh:', error);
+      });
       
       // Show success message
       refreshBtn.innerHTML = '<span class="refresh-icon">&#x2713;</span> Updated!';
