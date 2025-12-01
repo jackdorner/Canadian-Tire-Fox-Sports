@@ -390,3 +390,47 @@ body::before{
     transform: rotate(360deg);
   }
 }
+
+/* Head to Head Styles */
+.head-to-head-matchup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+.h2h-team {
+  text-align: center;
+  flex: 1;
+  max-width: 300px;
+}
+
+.h2h-team h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.h2h-vs {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  padding: 0 20px;
+}
+
+.head-to-head-content {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 30px;
+  margin: 20px 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+

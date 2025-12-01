@@ -1,0 +1,841 @@
+{
+  "stats": [
+    {
+      "name": "fumbles"
+    },
+    {
+      "name": "fumblesLost"
+    },
+    {
+      "name": "fumblesForced"
+    },
+    {
+      "name": "fumblesRecovered"
+    },
+    {
+      "name": "fumblesTouchdowns"
+    },
+    {
+      "name": "gamesPlayed"
+    },
+    {
+      "name": "offensiveTwoPtReturns"
+    },
+    {
+      "name": "offensiveFumblesTouchdowns"
+    },
+    {
+      "name": "defensiveFumblesTouchdowns"
+    },
+    {
+      "name": "totalPenalties"
+    },
+    {
+      "name": "totalPenaltyYards"
+    },
+    {
+      "name": "avgGain"
+    },
+    {
+      "name": "completionPct"
+    },
+    {
+      "name": "completions"
+    },
+    {
+      "name": "ESPNQBRating"
+    },
+    {
+      "name": "interceptionPct"
+    },
+    {
+      "name": "interceptions"
+    },
+    {
+      "name": "longPassing"
+    },
+    {
+      "name": "miscYards"
+    },
+    {
+      "name": "netPassingYards"
+    },
+    {
+      "name": "netPassingYardsPerGame"
+    },
+    {
+      "name": "netTotalYards"
+    },
+    {
+      "name": "netYardsPerGame"
+    },
+    {
+      "name": "passingAttempts"
+    },
+    {
+      "name": "passingBigPlays"
+    },
+    {
+      "name": "passingFirstDowns"
+    },
+    {
+      "name": "passingFumbles"
+    },
+    {
+      "name": "passingFumblesLost"
+    },
+    {
+      "name": "passingTouchdownPct"
+    },
+    {
+      "name": "passingTouchdowns"
+    },
+    {
+      "name": "passingYards"
+    },
+    {
+      "name": "passingYardsAfterCatch"
+    },
+    {
+      "name": "passingYardsAtCatch"
+    },
+    {
+      "name": "passingYardsPerGame"
+    },
+    {
+      "name": "QBRating"
+    },
+    {
+      "name": "sacks"
+    },
+    {
+      "name": "sackYardsLost"
+    },
+    {
+      "name": "netPassingAttempts"
+    },
+    {
+      "name": "teamGamesPlayed"
+    },
+    {
+      "name": "totalOffensivePlays"
+    },
+    {
+      "name": "totalPoints"
+    },
+    {
+      "name": "totalPointsPerGame"
+    },
+    {
+      "name": "totalTouchdowns"
+    },
+    {
+      "name": "totalYards"
+    },
+    {
+      "name": "totalYardsFromScrimmage"
+    },
+    {
+      "name": "twoPointPassConvs"
+    },
+    {
+      "name": "twoPtPass"
+    },
+    {
+      "name": "twoPtPassAttempts"
+    },
+    {
+      "name": "yardsFromScrimmagePerGame"
+    },
+    {
+      "name": "yardsPerCompletion"
+    },
+    {
+      "name": "yardsPerGame"
+    },
+    {
+      "name": "yardsPerPassAttempt"
+    },
+    {
+      "name": "netYardsPerPassAttempt"
+    },
+    {
+      "name": "quarterbackRating"
+    },
+    {
+      "name": "avgGain"
+    },
+    {
+      "name": "ESPNRBRating"
+    },
+    {
+      "name": "longRushing"
+    },
+    {
+      "name": "miscYards"
+    },
+    {
+      "name": "netTotalYards"
+    },
+    {
+      "name": "netYardsPerGame"
+    },
+    {
+      "name": "rushingAttempts"
+    },
+    {
+      "name": "rushingBigPlays"
+    },
+    {
+      "name": "rushingFirstDowns"
+    },
+    {
+      "name": "rushingFumbles"
+    },
+    {
+      "name": "rushingFumblesLost"
+    },
+    {
+      "name": "rushingTouchdowns"
+    },
+    {
+      "name": "rushingYards"
+    },
+    {
+      "name": "rushingYardsPerGame"
+    },
+    {
+      "name": "stuffs"
+    },
+    {
+      "name": "stuffYardsLost"
+    },
+    {
+      "name": "teamGamesPlayed"
+    },
+    {
+      "name": "totalOffensivePlays"
+    },
+    {
+      "name": "totalPoints"
+    },
+    {
+      "name": "totalPointsPerGame"
+    },
+    {
+      "name": "totalTouchdowns"
+    },
+    {
+      "name": "totalYards"
+    },
+    {
+      "name": "totalYardsFromScrimmage"
+    },
+    {
+      "name": "twoPointRushConvs"
+    },
+    {
+      "name": "twoPtRush"
+    },
+    {
+      "name": "twoPtRushAttempts"
+    },
+    {
+      "name": "yardsFromScrimmagePerGame"
+    },
+    {
+      "name": "yardsPerGame"
+    },
+    {
+      "name": "yardsPerRushAttempt"
+    },
+    {
+      "name": "avgGain"
+    },
+    {
+      "name": "ESPNWRRating"
+    },
+    {
+      "name": "longReception"
+    },
+    {
+      "name": "miscYards"
+    },
+    {
+      "name": "netTotalYards"
+    },
+    {
+      "name": "netYardsPerGame"
+    },
+    {
+      "name": "receivingBigPlays"
+    },
+    {
+      "name": "receivingFirstDowns"
+    },
+    {
+      "name": "receivingFumbles"
+    },
+    {
+      "name": "receivingFumblesLost"
+    },
+    {
+      "name": "receivingTargets"
+    },
+    {
+      "name": "receivingTouchdowns"
+    },
+    {
+      "name": "receivingYards"
+    },
+    {
+      "name": "receivingYardsAfterCatch"
+    },
+    {
+      "name": "receivingYardsAtCatch"
+    },
+    {
+      "name": "receivingYardsPerGame"
+    },
+    {
+      "name": "receptions"
+    },
+    {
+      "name": "teamGamesPlayed"
+    },
+    {
+      "name": "totalOffensivePlays"
+    },
+    {
+      "name": "totalPoints"
+    },
+    {
+      "name": "totalPointsPerGame"
+    },
+    {
+      "name": "totalTouchdowns"
+    },
+    {
+      "name": "totalYards"
+    },
+    {
+      "name": "totalYardsFromScrimmage"
+    },
+    {
+      "name": "twoPointRecConvs"
+    },
+    {
+      "name": "twoPtReception"
+    },
+    {
+      "name": "twoPtReceptionAttempts"
+    },
+    {
+      "name": "yardsFromScrimmagePerGame"
+    },
+    {
+      "name": "yardsPerGame"
+    },
+    {
+      "name": "yardsPerReception"
+    },
+    {
+      "name": "assistTackles"
+    },
+    {
+      "name": "avgInterceptionYards"
+    },
+    {
+      "name": "avgSackYards"
+    },
+    {
+      "name": "avgStuffYards"
+    },
+    {
+      "name": "blockedFieldGoalTouchdowns"
+    },
+    {
+      "name": "blockedPuntTouchdowns"
+    },
+    {
+      "name": "defensiveTouchdowns"
+    },
+    {
+      "name": "hurries"
+    },
+    {
+      "name": "kicksBlocked"
+    },
+    {
+      "name": "longInterception"
+    },
+    {
+      "name": "miscTouchdowns"
+    },
+    {
+      "name": "passesBattedDown"
+    },
+    {
+      "name": "passesDefended"
+    },
+    {
+      "name": "twoPtReturns"
+    },
+    {
+      "name": "sacks"
+    },
+    {
+      "name": "sackYards"
+    },
+    {
+      "name": "safeties"
+    },
+    {
+      "name": "soloTackles"
+    },
+    {
+      "name": "stuffs"
+    },
+    {
+      "name": "stuffYards"
+    },
+    {
+      "name": "tacklesForLoss"
+    },
+    {
+      "name": "teamGamesPlayed"
+    },
+    {
+      "name": "totalTackles"
+    },
+    {
+      "name": "yardsAllowed"
+    },
+    {
+      "name": "pointsAllowed"
+    },
+    {
+      "name": "onePtSafetiesMade"
+    },
+    {
+      "name": "missedFieldGoalReturnTd"
+    },
+    {
+      "name": "blockedPuntEzRecTd"
+    },
+    {
+      "name": "interceptions"
+    },
+    {
+      "name": "interceptionTouchdowns"
+    },
+    {
+      "name": "interceptionYards"
+    },
+    {
+      "name": "avgKickoffReturnYards"
+    },
+    {
+      "name": "avgKickoffYards"
+    },
+    {
+      "name": "extraPointAttempts"
+    },
+    {
+      "name": "extraPointPct"
+    },
+    {
+      "name": "extraPointsBlocked"
+    },
+    {
+      "name": "extraPointsBlockedPct"
+    },
+    {
+      "name": "extraPointsMade"
+    },
+    {
+      "name": "fairCatches"
+    },
+    {
+      "name": "fairCatchPct"
+    },
+    {
+      "name": "fieldGoalAttempts"
+    },
+    {
+      "name": "fieldGoalAttempts1_19"
+    },
+    {
+      "name": "fieldGoalAttempts20_29"
+    },
+    {
+      "name": "fieldGoalAttempts30_39"
+    },
+    {
+      "name": "fieldGoalAttempts40_49"
+    },
+    {
+      "name": "fieldGoalAttempts50_59"
+    },
+    {
+      "name": "fieldGoalAttempts60_99"
+    },
+    {
+      "name": "fieldGoalAttempts50"
+    },
+    {
+      "name": "fieldGoalAttemptYards"
+    },
+    {
+      "name": "fieldGoalPct"
+    },
+    {
+      "name": "fieldGoalsBlocked"
+    },
+    {
+      "name": "fieldGoalsBlockedPct"
+    },
+    {
+      "name": "fieldGoalsMade"
+    },
+    {
+      "name": "fieldGoalsMade1_19"
+    },
+    {
+      "name": "fieldGoalsMade20_29"
+    },
+    {
+      "name": "fieldGoalsMade30_39"
+    },
+    {
+      "name": "fieldGoalsMade40_49"
+    },
+    {
+      "name": "fieldGoalsMade50_59"
+    },
+    {
+      "name": "fieldGoalsMade60_99"
+    },
+    {
+      "name": "fieldGoalsMade50"
+    },
+    {
+      "name": "fieldGoalsMadeYards"
+    },
+    {
+      "name": "fieldGoalsMissedYards"
+    },
+    {
+      "name": "kickoffReturns"
+    },
+    {
+      "name": "kickoffReturnTouchdowns"
+    },
+    {
+      "name": "kickoffReturnYards"
+    },
+    {
+      "name": "kickoffs"
+    },
+    {
+      "name": "kickoffYards"
+    },
+    {
+      "name": "longFieldGoalAttempt"
+    },
+    {
+      "name": "longFieldGoalMade"
+    },
+    {
+      "name": "longKickoff"
+    },
+    {
+      "name": "teamGamesPlayed"
+    },
+    {
+      "name": "totalKickingPoints"
+    },
+    {
+      "name": "touchbackPct"
+    },
+    {
+      "name": "touchbacks"
+    },
+    {
+      "name": "defFumbleReturns"
+    },
+    {
+      "name": "defFumbleReturnYards"
+    },
+    {
+      "name": "fumbleRecoveries"
+    },
+    {
+      "name": "fumbleRecoveryYards"
+    },
+    {
+      "name": "kickReturnFairCatches"
+    },
+    {
+      "name": "kickReturnFairCatchPct"
+    },
+    {
+      "name": "kickReturnFumbles"
+    },
+    {
+      "name": "kickReturnFumblesLost"
+    },
+    {
+      "name": "kickReturns"
+    },
+    {
+      "name": "kickReturnTouchdowns"
+    },
+    {
+      "name": "kickReturnYards"
+    },
+    {
+      "name": "longKickReturn"
+    },
+    {
+      "name": "longPuntReturn"
+    },
+    {
+      "name": "miscFumbleReturns"
+    },
+    {
+      "name": "miscFumbleReturnYards"
+    },
+    {
+      "name": "oppFumbleRecoveries"
+    },
+    {
+      "name": "oppFumbleRecoveryYards"
+    },
+    {
+      "name": "oppSpecialTeamFumbleReturns"
+    },
+    {
+      "name": "oppSpecialTeamFumbleReturnYards"
+    },
+    {
+      "name": "puntReturnFairCatches"
+    },
+    {
+      "name": "puntReturnFairCatchPct"
+    },
+    {
+      "name": "puntReturnFumbles"
+    },
+    {
+      "name": "puntReturnFumblesLost"
+    },
+    {
+      "name": "puntReturns"
+    },
+    {
+      "name": "puntReturnsStartedInsideThe10"
+    },
+    {
+      "name": "puntReturnsStartedInsideThe20"
+    },
+    {
+      "name": "puntReturnTouchdowns"
+    },
+    {
+      "name": "puntReturnYards"
+    },
+    {
+      "name": "specialTeamFumbleReturns"
+    },
+    {
+      "name": "specialTeamFumbleReturnYards"
+    },
+    {
+      "name": "teamGamesPlayed"
+    },
+    {
+      "name": "yardsPerKickReturn"
+    },
+    {
+      "name": "yardsPerPuntReturn"
+    },
+    {
+      "name": "yardsPerReturn"
+    },
+    {
+      "name": "avgPuntReturnYards"
+    },
+    {
+      "name": "fairCatches"
+    },
+    {
+      "name": "grossAvgPuntYards"
+    },
+    {
+      "name": "longPunt"
+    },
+    {
+      "name": "netAvgPuntYards"
+    },
+    {
+      "name": "puntReturns"
+    },
+    {
+      "name": "puntReturnYards"
+    },
+    {
+      "name": "punts"
+    },
+    {
+      "name": "puntsBlocked"
+    },
+    {
+      "name": "puntsBlockedPct"
+    },
+    {
+      "name": "puntsInside10"
+    },
+    {
+      "name": "puntsInside10Pct"
+    },
+    {
+      "name": "puntsInside20"
+    },
+    {
+      "name": "puntsInside20Pct"
+    },
+    {
+      "name": "puntYards"
+    },
+    {
+      "name": "teamGamesPlayed"
+    },
+    {
+      "name": "touchbackPct"
+    },
+    {
+      "name": "touchbacks"
+    },
+    {
+      "name": "defensivePoints"
+    },
+    {
+      "name": "fieldGoals"
+    },
+    {
+      "name": "kickExtraPoints"
+    },
+    {
+      "name": "kickExtraPointsMade"
+    },
+    {
+      "name": "miscPoints"
+    },
+    {
+      "name": "passingTouchdowns"
+    },
+    {
+      "name": "receivingTouchdowns"
+    },
+    {
+      "name": "returnTouchdowns"
+    },
+    {
+      "name": "rushingTouchdowns"
+    },
+    {
+      "name": "totalPoints"
+    },
+    {
+      "name": "totalPointsPerGame"
+    },
+    {
+      "name": "totalTouchdowns"
+    },
+    {
+      "name": "totalTwoPointConvs"
+    },
+    {
+      "name": "twoPointPassConvs"
+    },
+    {
+      "name": "twoPointRecConvs"
+    },
+    {
+      "name": "twoPointRushConvs"
+    },
+    {
+      "name": "onePtSafetiesMade"
+    },
+    {
+      "name": "firstDowns"
+    },
+    {
+      "name": "firstDownsPassing"
+    },
+    {
+      "name": "firstDownsPenalty"
+    },
+    {
+      "name": "firstDownsPerGame"
+    },
+    {
+      "name": "firstDownsRushing"
+    },
+    {
+      "name": "fourthDownAttempts"
+    },
+    {
+      "name": "fourthDownConvPct"
+    },
+    {
+      "name": "fourthDownConvs"
+    },
+    {
+      "name": "fumblesLost"
+    },
+    {
+      "name": "possessionTimeSeconds"
+    },
+    {
+      "name": "redzoneEfficiencyPct"
+    },
+    {
+      "name": "redzoneFieldGoalPct"
+    },
+    {
+      "name": "redzoneScoringPct"
+    },
+    {
+      "name": "redzoneTouchdownPct"
+    },
+    {
+      "name": "thirdDownAttempts"
+    },
+    {
+      "name": "thirdDownConvPct"
+    },
+    {
+      "name": "thirdDownConvs"
+    },
+    {
+      "name": "totalGiveaways"
+    },
+    {
+      "name": "totalPenalties"
+    },
+    {
+      "name": "totalPenaltyYards"
+    },
+    {
+      "name": "totalTakeaways"
+    },
+    {
+      "name": "totalDrives"
+    },
+    {
+      "name": "turnOverDifferential"
+    }
+  ]
+}

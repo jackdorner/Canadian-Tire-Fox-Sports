@@ -22,6 +22,8 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('head-to-head/<str:away_abbr>/<str:home_abbr>/', views.head_to_head, name='head_to_head'),
+    path('season-stats/', views.season_stats, name='season_stats'),
     path("api/games/", views.games_for_week, name="games_for_week"),
     path("api/refresh-games/", views.refresh_week_games, name="refresh_week_games"),
     path("api/refresh-stats/", views.trigger_stats_refresh, name="trigger_stats_refresh"),

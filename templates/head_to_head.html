@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Head to Head - NFL Game Center</title>
+
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="icon" type="image/png" href="{% static 'images/nfl-favicon.png' %}">
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <h1 class="page-title">HEAD TO HEAD</h1>
+    </header>
+    
+    <div class="controls">
+      <a href="{% url 'home' %}" class="refresh-btn" style="text-decoration: none;">← Back to Games</a>
+    </div>
+
+    <div class="head-to-head-matchup">
+      <div class="h2h-team">
+        <h2>{{ away_team }}</h2>
+      </div>
+      <div class="h2h-vs">VS</div>
+      <div class="h2h-team">
+        <h2>{{ home_team }}</h2>
+      </div>
+    </div>
+
+    <div class="head-to-head-content">
+      <p>Head-to-head statistics will be displayed here.</p>
+    </div>
+  </div>
+</body>
+</html>

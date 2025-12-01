@@ -169,9 +169,11 @@ createGameCard(game) {
   const awayWinner = isFinal && game.awayScore > game.homeScore ? 'winner' : '';
 
   console.log('status text:', game.statusText, 'class:', statusClass);
+  
+  const headToHeadUrl = `/head-to-head/${game.awayTeam.abbreviation}/${game.homeTeam.abbreviation}/`;
 
   return `
-    <div class="game-card">
+    <div class="game-card" onclick="window.location.href='${headToHeadUrl}'" style="cursor: pointer;">
       <div class="game-date">${game.date}</div>
       <div class="game-status ${statusClass}">${game.statusText}</div>
       ${textRaw.includes('progress') || textRaw.includes('live') ? `<div class="game-detail">${game.shortDetail || ''}</div>` : ''}

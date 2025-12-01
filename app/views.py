@@ -20,6 +20,16 @@ team_stats_col = db["TeamStats"]
 def home(request):
     return render(request, "home.html")
 
+def head_to_head(request, away_abbr, home_abbr):
+    context = {
+        'away_team': away_abbr,
+        'home_team': home_abbr
+    }
+    return render(request, "head_to_head.html", context)
+
+def season_stats(request):
+    return render(request, "season_stats.html")
+
 
 @require_GET
 def games_for_week(request):
