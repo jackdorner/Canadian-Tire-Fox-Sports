@@ -20,12 +20,229 @@ team_stats_col = db["TeamStats"]
 def home(request):
     return render(request, "home.html")
 
+def _get_stat_value(stats_list, names, default='-'):
+    if isinstance(names, str):
+        names = [names]
+
+    for n in names:
+        for stat in stats_list:
+            if stat.get("name") == n:
+                val = stat.get("displayValue")
+                if val not in (None, ""):
+                    return val
+                val = stat.get("value")
+                if val not in (None, ""):
+                    return val
+    return default
+
+
+def _build_team_h2h_stats(team_abbr: str):
+    """
+    Given 'LV', 'DEN', etc, return offense/defense/special stats
+    for the head-to-head page.
+    """
+    team_abbr = team_abbr.upper()
+    print("H2H: building stats for", team_abbr)
+
+    team_id = _get_team_id_from_abbr(team_abbr)
+    if team_id is None:
+        print("H2H: could not resolve team_id for", team_abbr)
+        return None
+
+    print("H2H:", team_abbr, "resolved team_id =", team_id)
+
+    doc = team_stats_col.find_one({"team_id": team_id})
+    if not doc:
+        print("H2H: no TeamStats doc for team_id", team_id)
+        return None
+
+    stats_list = doc.get("stats", [])
+
+    offense = {
+        "total_yards":         _get_stat_value(stats_list, ["totalYards", "netTotalYards"]),
+        "rushing_yards":       _get_stat_value(stats_list, "rushingYards"),
+        "yards_per_reception": _get_stat_value(stats_list, "yardsPerReception"),
+        "yards_per_rush":      _get_stat_value(stats_list, "yardsPerRushAttempt"),
+        "passer_rating":       _get_stat_value(stats_list, ["QBRating", "quarterbackRating", "ESPNQBRating"]),
+        "third_down_pct":      _get_stat_value(stats_list, "thirdDownConvPct"),
+        "total_penalties":     _get_stat_value(stats_list, "totalPenalties"),
+        "points_per_game":     _get_stat_value(stats_list, "totalPointsPerGame"),
+    }
+
+    defense = {
+        "interceptions":     _get_stat_value(stats_list, "interceptions"),
+        "tackles_for_loss":  _get_stat_value(stats_list, "tacklesForLoss"),
+    }
+
+    special = {
+        "long_fg_made":      _get_stat_value(stats_list, "longFieldGoalMade"),
+    }
+
+    return {
+        "offense": offense,
+        "defense": defense,
+        "special": special,
+    }
+
+
+def _get_team_id_from_abbr(abbr: str):
+    """
+    Find a team_id for a given abbreviation (e.g. 'GB', 'DEN')
+    by looking at any game in the Games collection.
+    """
+    abbr = abbr.upper()
+
+    doc = games_col.find_one({
+        "$or": [
+            {"home_team.abbreviation": abbr},
+            {"away_team.abbreviation": abbr},
+        ]
+    })
+
+    if not doc:
+        print("H2H: no game found containing team", abbr)
+        return None
+
+    if doc["home_team"]["abbreviation"].upper() == abbr:
+        raw_id = doc["home_team"]["team_id"]
+    else:
+        raw_id = doc["away_team"]["team_id"]
+
+    try:
+        return int(raw_id)
+    except (TypeError, ValueError):
+        return raw_id
+
 def head_to_head(request, away_abbr, home_abbr):
+    away_stats = _build_team_h2h_stats(away_abbr)
+    home_stats = _build_team_h2h_stats(home_abbr)
+
+    offense_rows = defense_rows = special_rows = []
+    if away_stats and home_stats:
+        offense_rows = _build_rows(
+            away_stats["offense"],
+            home_stats["offense"],
+            [
+                ("total_yards", "Total Yards", False),
+                ("rushing_yards", "Rushing Yards", False),
+                ("yards_per_reception", "Yards / Reception", False),
+                ("yards_per_rush", "Yards / Rush Attempt", False),
+                ("passer_rating", "Passer Rating", False),
+                ("third_down_pct", "3rd Down %", False),
+                ("total_penalties", "Total Penalties", True),
+                ("points_per_game", "Points / Game", False),
+            ]
+        )
+        defense_rows = _build_rows(
+            away_stats["defense"],
+            home_stats["defense"],
+            [
+                ("interceptions", "Interceptions", False),
+                ("tackles_for_loss", "Tackles for Loss", False),
+            ]
+        )
+        special_rows = _build_rows(
+            away_stats["special"],
+            home_stats["special"],
+            [
+                ("long_fg_made", "Long Field Goal Made", False),
+            ]
+        )
+
     context = {
-        'away_team': away_abbr,
-        'home_team': home_abbr
+        "away_team": away_abbr,
+        "home_team": home_abbr,
+        "away_stats": away_stats,
+        "home_stats": home_stats,
+        "offense_rows": offense_rows,
+        "defense_rows": defense_rows,
+        "special_rows": special_rows,
+        "away_logo": _get_team_logo_from_abbr(away_abbr),
+        "home_logo": _get_team_logo_from_abbr(home_abbr),
     }
     return render(request, "head_to_head.html", context)
+
+
+# this is to normalize numbers for comparison (removes %, commas, etc)
+def _parse_number_for_compare(value):
+    if value in (None, "", "-"):
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+
+    s = str(value).replace(",", "").strip()
+    if s.endswith("%"):
+        s = s[:-1]
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def _build_rows(away_section, home_section, field_specs):
+    """
+    field_specs = [
+        ("total_yards", "Total Yards", False),   # False => higher is better
+        ("total_penalties", "Total Penalties", True),  # True => lower is better
+        ...
+    ]
+    """
+    rows = []
+    for key, label, prefer_low in field_specs:
+        a_display = away_section.get(key, "-")
+        h_display = home_section.get(key, "-")
+
+        a_num = _parse_number_for_compare(a_display)
+        h_num = _parse_number_for_compare(h_display)
+
+        leader = "tie"
+        if a_num is not None and h_num is not None and a_num != h_num:
+            if prefer_low:
+                leader = "away" if a_num < h_num else "home"
+            else:
+                leader = "away" if a_num > h_num else "home"
+
+        if leader == "away":
+            away_class = "leader"
+            home_class = "faded"
+        elif leader == "home":
+            away_class = "faded"
+            home_class = "leader"
+        else:
+            away_class = ""
+            home_class = ""
+
+        rows.append({
+            "label": label,
+            "away_display": a_display,
+            "home_display": h_display,
+            "away_class": away_class,
+            "home_class": home_class,
+        })
+    return rows
+
+def _find_team_doc_for_abbr(abbr: str):
+    abbr = abbr.upper()
+    doc = games_col.find_one({
+        "$or": [
+            {"home_team.abbreviation": abbr},
+            {"away_team.abbreviation": abbr},
+        ]
+    })
+    if not doc:
+        return None
+
+    if doc["home_team"]["abbreviation"].upper() == abbr:
+        return doc["home_team"]
+    return doc["away_team"]
+
+
+def _get_team_logo_from_abbr(abbr: str):
+    team_doc = _find_team_doc_for_abbr(abbr)
+    if not team_doc:
+        return ""
+    return team_doc.get("logo", "")
+
 
 def season_stats(request):
     return render(request, "season_stats.html")
