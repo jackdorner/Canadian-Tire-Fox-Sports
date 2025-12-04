@@ -465,10 +465,17 @@ body::before{
 
 .h2h-columns-header {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
   margin-bottom: 10px;
   padding: 0 4px;
+}
+
+.h2h-column-label {
+  text-align: center;
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 0.9rem;
 }
 /* Leader vs non-leader */
 .h2h-stat-value.leader {
@@ -515,7 +522,7 @@ body::before{
 
 .h2h-stat-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   padding: 8px 10px;
   border-radius: 10px;
@@ -558,4 +565,161 @@ body::before{
   height: 72px;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7));
+}
+
+/* Season Stats Page Styles */
+.stats-dropdown {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  padding: 12px 24px;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+  transition: all 0.2s ease;
+  min-width: 300px;
+}
+
+.stats-dropdown:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+}
+
+.stats-dropdown:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.stats-header {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e5e7eb;
+  text-align: center;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+
+.stat-header-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.stat-header-average {
+  font-size: 1.1rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.stat-header-average span {
+  color: #111827;
+  font-weight: 700;
+}
+
+.rankings-table {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.stats-rank-row {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e5e7eb;
+  display: grid;
+  grid-template-columns: 80px 1fr 140px;
+  align-items: center;
+  gap: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stats-rank-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.rank-number {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #6b7280;
+  line-height: 1;
+}
+
+.team-info-cell {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.team-info-cell .team-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.team-info-cell .team-name {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #111827;
+}
+
+.stat-value-cell {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Color classes for stat values - Above Average (Green) */
+.stat-above-1 { color: rgba(22, 163, 74, 0.34); }
+.stat-above-2 { color: rgba(22, 163, 74, 0.39); }
+.stat-above-3 { color: rgba(22, 163, 74, 0.43); }
+.stat-above-4 { color: rgba(22, 163, 74, 0.48); }
+.stat-above-5 { color: rgba(22, 163, 74, 0.53); }
+.stat-above-6 { color: rgba(22, 163, 74, 0.57); }
+.stat-above-7 { color: rgba(22, 163, 74, 0.62); }
+.stat-above-8 { color: rgba(22, 163, 74, 0.67); }
+.stat-above-9 { color: rgba(22, 163, 74, 0.71); }
+.stat-above-10 { color: rgba(22, 163, 74, 0.76); }
+.stat-above-11 { color: rgba(22, 163, 74, 0.81); }
+.stat-above-12 { color: rgba(22, 163, 74, 0.85); }
+.stat-above-13 { color: rgba(22, 163, 74, 0.90); }
+.stat-above-14 { color: rgba(22, 163, 74, 0.95); }
+.stat-above-15 { color: rgba(22, 163, 74, 0.98); }
+.stat-above-16 { color: rgba(22, 163, 74, 1.0); }
+
+/* Color classes for stat values - Below Average (Red) */
+.stat-below-1 { color: rgba(239, 83, 80, 0.34); }
+.stat-below-2 { color: rgba(239, 83, 80, 0.39); }
+.stat-below-3 { color: rgba(239, 83, 80, 0.43); }
+.stat-below-4 { color: rgba(239, 83, 80, 0.48); }
+.stat-below-5 { color: rgba(239, 83, 80, 0.53); }
+.stat-below-6 { color: rgba(239, 83, 80, 0.57); }
+.stat-below-7 { color: rgba(239, 83, 80, 0.62); }
+.stat-below-8 { color: rgba(239, 83, 80, 0.67); }
+.stat-below-9 { color: rgba(239, 83, 80, 0.71); }
+.stat-below-10 { color: rgba(239, 83, 80, 0.76); }
+.stat-below-11 { color: rgba(239, 83, 80, 0.81); }
+.stat-below-12 { color: rgba(239, 83, 80, 0.85); }
+.stat-below-13 { color: rgba(239, 83, 80, 0.90); }
+.stat-below-14 { color: rgba(239, 83, 80, 0.95); }
+.stat-below-15 { color: rgba(239, 83, 80, 0.98); }
+.stat-below-16 { color: rgba(239, 83, 80, 1.0); }
+
+/* At average - neutral gray */
+.stat-average {
+  color: #6b7280;
 }

@@ -60,11 +60,6 @@
     <div class="head-to-head-content">
       {% if away_stats and home_stats %}
         <!-- Column headers (team labels) -->
-        <div class="h2h-columns-header">
-          <div class="h2h-column-label h2h-column-label--empty"></div>
-          <div class="h2h-column-label">{{ away_team }}</div>
-          <div class="h2h-column-label">{{ home_team }}</div>
-        </div>
 
         <div class="h2h-stats-sections">
           <!-- Offense -->
@@ -73,8 +68,8 @@
             <div class="h2h-stats-grid">
               {% for row in offense_rows %}
                 <div class="h2h-stat-row">
-                  <span class="h2h-stat-label">{{ row.label }}</span>
                   <span class="h2h-stat-value {{ row.away_class }}">{{ row.away_display }}</span>
+                  <span class="h2h-stat-label">{{ row.label }}</span>
                   <span class="h2h-stat-value {{ row.home_class }}">{{ row.home_display }}</span>
                 </div>
               {% endfor %}
@@ -87,8 +82,8 @@
             <div class="h2h-stats-grid">
               {% for row in defense_rows %}
                 <div class="h2h-stat-row">
-                  <span class="h2h-stat-label">{{ row.label }}</span>
                   <span class="h2h-stat-value {{ row.away_class }}">{{ row.away_display }}</span>
+                  <span class="h2h-stat-label">{{ row.label }}</span>
                   <span class="h2h-stat-value {{ row.home_class }}">{{ row.home_display }}</span>
                 </div>
               {% endfor %}
@@ -101,8 +96,8 @@
             <div class="h2h-stats-grid">
               {% for row in special_rows %}
                 <div class="h2h-stat-row">
-                  <span class="h2h-stat-label">{{ row.label }}</span>
                   <span class="h2h-stat-value {{ row.away_class }}">{{ row.away_display }}</span>
+                  <span class="h2h-stat-label">{{ row.label }}</span>
                   <span class="h2h-stat-value {{ row.home_class }}">{{ row.home_display }}</span>
                 </div>
               {% endfor %}

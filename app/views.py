@@ -16,6 +16,80 @@ client = MongoClient(settings.MONGODB_URI)
 db = client["FinalProjectPart2"]
 games_col = db["Games"]
 team_stats_col = db["TeamStats"]
+teams_col = db["Teams"]
+
+# Statistics categories with metadata for the season stats page
+STAT_CATEGORIES = {
+    # Offense - Scoring
+    "OFFPointsPerGame": {"stat_name": "totalPointsPerGame", "display_name": "Points Per Game", "prefer_low": False},
+    "OFFTotalPoints": {"stat_name": "totalPoints", "display_name": "Total Points", "prefer_low": False},
+    
+    # Offense - Total Yards
+    "OFFTotalYards": {"stat_name": "netTotalYards", "display_name": "Net Total Yards", "prefer_low": False},
+    "OFFYardsPerGame": {"stat_name": "netYardsPerGame", "display_name": "Net Yards Per Game", "prefer_low": False},
+    "OFFTotalOffensivePlays": {"stat_name": "totalOffensivePlays", "display_name": "Total Offensive Plays", "prefer_low": False},
+    
+    # Offense - Passing
+    "OFFPassingYards": {"stat_name": "passingYards", "display_name": "Passing Yards", "prefer_low": False},
+    "OFFPassingYardsPerGame": {"stat_name": "passingYardsPerGame", "display_name": "Passing Yards Per Game", "prefer_low": False},
+    "OFFNetPassingYards": {"stat_name": "netPassingYards", "display_name": "Net Passing Yards", "prefer_low": False},
+    "OFFCompletionPercentage": {"stat_name": "completionPct", "display_name": "Completion Percentage", "prefer_low": False},
+    "OFFPassingTouchdowns": {"stat_name": "passingTouchdowns", "display_name": "Passing Touchdowns", "prefer_low": False},
+    "OFFInterceptionsThrown": {"stat_name": "interceptions", "display_name": "Interceptions Thrown", "prefer_low": True},
+    "OFFPasserRating": {"stat_name": "QBRating", "display_name": "Passer Rating", "prefer_low": False},
+    "OFFYardsPerPassAttempt": {"stat_name": "yardsPerPassAttempt", "display_name": "Yards Per Pass Attempt", "prefer_low": False},
+    "OFFSacksAllowed": {"stat_name": "sacks", "display_name": "Sacks Allowed", "prefer_low": True},
+    
+    # Offense - Rushing
+    "OFFRushingYards": {"stat_name": "rushingYards", "display_name": "Rushing Yards", "prefer_low": False},
+    "OFFRushingYardsPerGame": {"stat_name": "rushingYardsPerGame", "display_name": "Rushing Yards Per Game", "prefer_low": False},
+    "OFFYardsPerRush": {"stat_name": "yardsPerRushAttempt", "display_name": "Yards Per Rush Attempt", "prefer_low": False},
+    "OFFRushingTouchdowns": {"stat_name": "rushingTouchdowns", "display_name": "Rushing Touchdowns", "prefer_low": False},
+    
+    # Offense - Efficiency
+    "OFFThirdDownConversionPct": {"stat_name": "thirdDownConvPct", "display_name": "Third Down Conversion %", "prefer_low": False},
+    "OFFFourthDownConversionPct": {"stat_name": "fourthDownConvPct", "display_name": "Fourth Down Conversion %", "prefer_low": False},
+    "OFFRedZoneScoringPct": {"stat_name": "redzoneScoringPct", "display_name": "Red Zone Scoring %", "prefer_low": False},
+    "OFFRedZoneTDPct": {"stat_name": "redzoneTouchdownPct", "display_name": "Red Zone Touchdown %", "prefer_low": False},
+    
+    # Offense - Turnovers & Penalties
+    "OFFTurnovers": {"stat_name": "fumbles", "display_name": "Fumbles", "prefer_low": True},
+    "OFFFumblesLost": {"stat_name": "fumblesLost", "display_name": "Fumbles Lost", "prefer_low": True},
+    "OFFTotalPenalties": {"stat_name": "totalPenalties", "display_name": "Total Penalties", "prefer_low": True},
+    "OFFPenaltyYards": {"stat_name": "totalPenaltyYards", "display_name": "Total Penalty Yards", "prefer_low": True},
+    
+    # Defense - Sacks & Pressure
+    "DEFSacks": {"stat_name": "sacks", "display_name": "Sacks", "prefer_low": False},
+    "DEFTacklesForLoss": {"stat_name": "tacklesForLoss", "display_name": "Tackles For Loss", "prefer_low": False},
+    "DEFQBHits": {"stat_name": "QBHits", "display_name": "QB Hits", "prefer_low": False},
+    
+    # Defense - Turnovers
+    "DEFInterceptions": {"stat_name": "interceptions", "display_name": "Interceptions", "prefer_low": False},
+    "DEFForcedFumbles": {"stat_name": "fumblesForced", "display_name": "Forced Fumbles", "prefer_low": False},
+    "DEFFumblesRecovered": {"stat_name": "fumblesRecovered", "display_name": "Fumbles Recovered", "prefer_low": False},
+    "DEFTurnoverDifferential": {"stat_name": "turnOverDifferential", "display_name": "Turnover Differential", "prefer_low": False},
+    
+    # Defense - Tackles
+    "DEFSoloTackles": {"stat_name": "soloTackles", "display_name": "Solo Tackles", "prefer_low": False},
+    "DEFAssistTackles": {"stat_name": "assistTackles", "display_name": "Assist Tackles", "prefer_low": False},
+    
+    # Defense - Scoring
+    "DEFDefensiveTouchdowns": {"stat_name": "defensiveFumblesTouchdowns", "display_name": "Defensive TDs", "prefer_low": False},
+    
+    # Special Teams - Kicking
+    "STFieldGoalPct": {"stat_name": "fieldGoalPct", "display_name": "Field Goal Percentage", "prefer_low": False},
+    "STFieldGoalsMade": {"stat_name": "fieldGoalsMade", "display_name": "Field Goals Made", "prefer_low": False},
+    "STExtraPointsMade": {"stat_name": "extraPointsMade", "display_name": "Extra Points Made", "prefer_low": False},
+    "STLongFieldGoal": {"stat_name": "longFieldGoalMade", "display_name": "Long Field Goal Made", "prefer_low": False},
+    
+    # Special Teams - Punting
+    "STPuntingAverage": {"stat_name": "puntingAverage", "display_name": "Punting Average", "prefer_low": False},
+    "STNetPuntingAverage": {"stat_name": "netPuntingAverage", "display_name": "Net Punting Average", "prefer_low": False},
+    
+    # Special Teams - Returns
+    "STKickoffReturnAverage": {"stat_name": "kickoffReturnAverage", "display_name": "Kickoff Return Average", "prefer_low": False},
+    "STPuntReturnAverage": {"stat_name": "puntReturnAverage", "display_name": "Punt Return Average", "prefer_low": False},
+}
 
 def home(request):
     return render(request, "home.html")
@@ -246,6 +320,106 @@ def _get_team_logo_from_abbr(abbr: str):
 
 def season_stats(request):
     return render(request, "season_stats.html")
+
+
+@require_GET
+def season_stats_data(request):
+    """
+    API endpoint to fetch team statistics for the season stats page.
+    Returns ranked teams for a selected statistic with league average.
+    """
+    stat_key = request.GET.get("stat", "OFFPointsPerGame")
+    
+    # Validate stat key
+    if stat_key not in STAT_CATEGORIES:
+        return JsonResponse({"error": "Invalid stat parameter"}, status=400)
+    
+    stat_meta = STAT_CATEGORIES[stat_key]
+    stat_name = stat_meta["stat_name"]
+    display_name = stat_meta["display_name"]
+    prefer_low = stat_meta["prefer_low"]
+    
+    try:
+        # Fetch all teams from TeamStats collection
+        all_team_docs = list(team_stats_col.find({}))
+        
+        if not all_team_docs:
+            return JsonResponse({"error": "No team statistics found"}, status=404)
+        
+        teams_data = []
+        
+        for team_doc in all_team_docs:
+            team_id = team_doc.get("team_id")
+            stats_list = team_doc.get("stats", [])
+            
+            # Find the specific stat
+            stat_value = None
+            stat_display = None
+            stat_rank = None
+            
+            for stat in stats_list:
+                if stat.get("name") == stat_name:
+                    stat_value = stat.get("value")
+                    stat_display = stat.get("displayValue", str(stat_value))
+                    stat_rank = stat.get("rank")
+                    break
+            
+            # Skip teams without this stat
+            if stat_value is None:
+                continue
+            
+            # Get team info from Teams collection
+            team_info = teams_col.find_one({"team_id": str(team_id)})
+            
+            if team_info:
+                teams_data.append({
+                    "team_id": team_id,
+                    "abbreviation": team_info.get("abbreviation", ""),
+                    "display_name": team_info.get("display_name", ""),
+                    "logo": team_info.get("logo_url", ""),
+                    "value": stat_value,
+                    "displayValue": stat_display,
+                })
+        
+        if not teams_data:
+            return JsonResponse({"error": "No data available for this statistic"}, status=404)
+        
+        # Calculate league average
+        total_value = sum(team["value"] for team in teams_data)
+        league_average = total_value / len(teams_data)
+        
+        # Sort teams by stat value (reverse if prefer_low is False, meaning higher is better)
+        teams_data.sort(key=lambda x: x["value"], reverse=(not prefer_low))
+        
+        # Assign ranks (handle ties)
+        current_rank = 1
+        for i, team in enumerate(teams_data):
+            if i > 0 and teams_data[i]["value"] == teams_data[i-1]["value"]:
+                # Same value as previous team, same rank
+                team["rank"] = teams_data[i-1]["rank"]
+            else:
+                # New value, assign current rank
+                team["rank"] = current_rank
+            current_rank = i + 2  # Next unique rank
+        
+        # Format league average for display
+        league_average_display = f"{league_average:.2f}"
+        # Check if it's a whole number
+        if league_average == int(league_average):
+            league_average_display = str(int(league_average))
+        
+        return JsonResponse({
+            "stat_key": stat_key,
+            "stat_display_name": display_name,
+            "league_average": league_average,
+            "league_average_display": league_average_display,
+            "prefer_low": prefer_low,
+            "teams": teams_data,
+        })
+    
+    except Exception as e:
+        print(f"Error in season_stats_data: {e}")
+        return JsonResponse({"error": "Internal server error"}, status=500)
 
 
 @require_GET

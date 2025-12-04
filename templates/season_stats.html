@@ -1,1 +1,124 @@
-<h1>Season Stats </h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Season Stats - NFL Game Center</title>
+
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="icon" type="image/png" href="{% static 'images/nfl-favicon.png' %}">
+  <script src="{% static 'js/season_stats.js' %}" defer></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Page Title -->
+    <header class="page-header">
+      <h1 class="page-title">SEASON STATS</h1>
+    </header>
+
+    <!-- Controls -->
+    <div class="controls">
+      <a href="{% url 'home' %}" class="refresh-btn" style="text-decoration: none;">
+        ← Back to Games
+      </a>
+      
+      <select id="statSelector" class="stats-dropdown">
+        <optgroup label="Offense - Scoring">
+          <option value="OFFPointsPerGame" selected>Points Per Game</option>
+          <option value="OFFTotalPoints">Total Points</option>
+        </optgroup>
+        
+        <optgroup label="Offense - Total Yards">
+          <option value="OFFTotalYards">Total Yards</option>
+          <option value="OFFYardsPerGame">Yards Per Game</option>
+          <option value="OFFTotalOffensivePlays">Total Offensive Plays</option>
+        </optgroup>
+        
+        <optgroup label="Offense - Passing">
+          <option value="OFFPassingYards">Passing Yards</option>
+          <option value="OFFPassingYardsPerGame">Passing Yards Per Game</option>
+          <option value="OFFNetPassingYards">Net Passing Yards</option>
+          <option value="OFFCompletionPercentage">Completion Percentage</option>
+          <option value="OFFPassingTouchdowns">Passing Touchdowns</option>
+          <option value="OFFInterceptionsThrown">Interceptions Thrown</option>
+          <option value="OFFPasserRating">Passer Rating</option>
+          <option value="OFFYardsPerPassAttempt">Yards Per Pass Attempt</option>
+          <option value="OFFSacksAllowed">Sacks Allowed</option>
+        </optgroup>
+        
+        <optgroup label="Offense - Rushing">
+          <option value="OFFRushingYards">Rushing Yards</option>
+          <option value="OFFRushingYardsPerGame">Rushing Yards Per Game</option>
+          <option value="OFFYardsPerRush">Yards Per Rush</option>
+          <option value="OFFRushingTouchdowns">Rushing Touchdowns</option>
+        </optgroup>
+        
+        <optgroup label="Offense - Efficiency">
+          <option value="OFFThirdDownConversionPct">Third Down Conversion %</option>
+          <option value="OFFFourthDownConversionPct">Fourth Down Conversion %</option>
+          <option value="OFFRedZoneScoringPct">Red Zone Scoring %</option>
+          <option value="OFFRedZoneTDPct">Red Zone TD %</option>
+        </optgroup>
+        
+        <optgroup label="Offense - Turnovers & Penalties">
+          <option value="OFFTurnovers">Fumbles</option>
+          <option value="OFFFumblesLost">Fumbles Lost</option>
+          <option value="OFFTotalPenalties">Total Penalties</option>
+          <option value="OFFPenaltyYards">Penalty Yards</option>
+        </optgroup>
+        
+        <optgroup label="Defense - Sacks & Pressure">
+          <option value="DEFSacks">Sacks</option>
+          <option value="DEFTacklesForLoss">Tackles For Loss</option>
+          <option value="DEFQBHits">QB Hits</option>
+        </optgroup>
+        
+        <optgroup label="Defense - Turnovers">
+          <option value="DEFInterceptions">Interceptions</option>
+          <option value="DEFForcedFumbles">Forced Fumbles</option>
+          <option value="DEFFumblesRecovered">Fumbles Recovered</option>
+          <option value="DEFTurnoverDifferential">Turnover Differential</option>
+        </optgroup>
+        
+        <optgroup label="Defense - Tackles">
+          <option value="DEFSoloTackles">Solo Tackles</option>
+          <option value="DEFAssistTackles">Assist Tackles</option>
+        </optgroup>
+        
+        <optgroup label="Defense - Scoring">
+          <option value="DEFDefensiveTouchdowns">Defensive Touchdowns</option>
+        </optgroup>
+        
+        <optgroup label="Special Teams - Kicking">
+          <option value="STFieldGoalPct">Field Goal %</option>
+          <option value="STFieldGoalsMade">Field Goals Made</option>
+          <option value="STExtraPointsMade">Extra Points Made</option>
+          <option value="STLongFieldGoal">Long Field Goal</option>
+        </optgroup>
+        
+        <optgroup label="Special Teams - Punting">
+          <option value="STPuntingAverage">Punting Average</option>
+          <option value="STNetPuntingAverage">Net Punting Average</option>
+        </optgroup>
+        
+        <optgroup label="Special Teams - Returns">
+          <option value="STKickoffReturnAverage">Kickoff Return Average</option>
+          <option value="STPuntReturnAverage">Punt Return Average</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <!-- Stats Header -->
+    <div id="statsHeader" class="stats-header">
+      <div class="stat-header-title">Points Per Game</div>
+      <div class="stat-header-average">League Average: <span id="leagueAverage">--</span></div>
+    </div>
+
+    <!-- Rankings Container -->
+    <div id="rankingsContainer" class="rankings-table">
+      <div class="loading">Loading statistics...</div>
+    </div>
+  </div>
+</body>
+</html>
