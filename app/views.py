@@ -58,11 +58,6 @@ STAT_CATEGORIES = {
     "OFFTotalPenalties": {"stat_name": "totalPenalties", "display_name": "Total Penalties", "prefer_low": True},
     "OFFPenaltyYards": {"stat_name": "totalPenaltyYards", "display_name": "Total Penalty Yards", "prefer_low": True},
     
-    # Defense - Sacks & Pressure
-    "DEFSacks": {"stat_name": "sacks", "display_name": "Sacks", "prefer_low": False},
-    "DEFTacklesForLoss": {"stat_name": "tacklesForLoss", "display_name": "Tackles For Loss", "prefer_low": False},
-    "DEFQBHits": {"stat_name": "QBHits", "display_name": "QB Hits", "prefer_low": False},
-    
     # Defense - Turnovers
     "DEFInterceptions": {"stat_name": "interceptions", "display_name": "Interceptions", "prefer_low": False},
     "DEFForcedFumbles": {"stat_name": "fumblesForced", "display_name": "Forced Fumbles", "prefer_low": False},
@@ -72,9 +67,7 @@ STAT_CATEGORIES = {
     # Defense - Tackles
     "DEFSoloTackles": {"stat_name": "soloTackles", "display_name": "Solo Tackles", "prefer_low": False},
     "DEFAssistTackles": {"stat_name": "assistTackles", "display_name": "Assist Tackles", "prefer_low": False},
-    
-    # Defense - Scoring
-    "DEFDefensiveTouchdowns": {"stat_name": "defensiveFumblesTouchdowns", "display_name": "Defensive TDs", "prefer_low": False},
+    "DEFTacklesForLoss": {"stat_name": "tacklesForLoss", "display_name": "Tackles For Loss", "prefer_low": False},"DEFTacklesForLoss": {"stat_name": "tacklesForLoss", "display_name": "Tackles For Loss", "prefer_low": False},
     
     # Special Teams - Kicking
     "STFieldGoalPct": {"stat_name": "fieldGoalPct", "display_name": "Field Goal Percentage", "prefer_low": False},
@@ -83,12 +76,12 @@ STAT_CATEGORIES = {
     "STLongFieldGoal": {"stat_name": "longFieldGoalMade", "display_name": "Long Field Goal Made", "prefer_low": False},
     
     # Special Teams - Punting
-    "STPuntingAverage": {"stat_name": "puntingAverage", "display_name": "Punting Average", "prefer_low": False},
-    "STNetPuntingAverage": {"stat_name": "netPuntingAverage", "display_name": "Net Punting Average", "prefer_low": False},
+    "STPuntingAverage": {"stat_name": "grossAvgPuntYards", "display_name": "Gross Average Punt Yards", "prefer_low": False},
+    "STNetPuntingAverage": {"stat_name": "netAvgPuntYards", "display_name": "Net Average Punt Yards", "prefer_low": False},
     
     # Special Teams - Returns
-    "STKickoffReturnAverage": {"stat_name": "kickoffReturnAverage", "display_name": "Kickoff Return Average", "prefer_low": False},
-    "STPuntReturnAverage": {"stat_name": "puntReturnAverage", "display_name": "Punt Return Average", "prefer_low": False},
+    "STKickoffReturnAverage": {"stat_name": "yardsPerKickReturn", "display_name": "Yards Per Kick Return", "prefer_low": False},
+    "STPuntReturnAverage": {"stat_name": "yardsPerPuntReturn", "display_name": "Yards Per Punt Return", "prefer_low": False},
 }
 
 def home(request):
